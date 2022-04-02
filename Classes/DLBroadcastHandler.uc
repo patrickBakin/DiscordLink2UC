@@ -10,7 +10,16 @@ function PreBeginPlay(){
 }
 function BroadcastText( PlayerReplicationInfo SenderPRI, PlayerController Receiver, coerce string Msg, optional name Type ) {
 	if(SenderPRI!=none && Receiver !=none && Msg!="")
-		Link.MessageString=GetPlayerSteamID(SenderPRI)$":"$SenderPRI.PlayerName $": "$Msg;
+	{
+		
+		
+		 Link.MessageString=GetPlayerSteamID(SenderPRI)$"^$"$SenderPRI.PlayerName $"^$ "$Msg$"<<end";
+		
+	}
+	else if(SenderPRI==None && Type=='CDEcho')
+		{
+				Link.MessageString="CDC^$"$"[Controlled Difficulty Message]"$"^$ "$Msg$"<<end";
+		}
 	super.BroadcastText(SenderPRI,Receiver,Msg,Type);
 
 }

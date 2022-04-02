@@ -41,7 +41,11 @@ event ReceivedText( string Text )
 {
 	local KFPlayerController KFPC;
 	super.ReceivedLine(Text);
-	//WorldInfo.Game.Broadcast(self, Text);
+	if(WorldInfo.Game.class.Name=='CD_Survival' && Left(Text,3)=="!cd")
+	{
+		WorldInfo.Game.Broadcast(None, Text,'Say');
+	}
+	//;
 	DLB.DLA.SendMSG(Text);
 	/*foreach WorldInfo.AllControllers(class'KFPlayerController',KFPC)
 	{
@@ -50,15 +54,33 @@ event ReceivedText( string Text )
 	LogInternal("[Discord Link 2]"$Text);
 }
 function CheckNSendMessages(){
-	if(MessageString!="" ){
-		if(SendText(UnicodeConverter(MessageString))<=0){
+	if(MessageString!="")
+	{
+		if(SendText(UnicodeConverter(MessageString))<=0)
+		{
 			LogInternal("[Discord Link 2] Sending failed! Try again..");
 		
 		}
-		else{
+		else
+		{
 			MessageString="";
 		}
 	}
+	/*else if(MessageString!="" && Left(MessageString,3)=="CDC")
+		{
+			if(SendText(MessageString)<=0)
+			{
+				LogInternal("[Discord Link 2] Sending failed! Try again..");
+		
+			}
+			else
+			{
+				MessageString="";
+			}
+
+
+		}*/
+	
 }
 function string UnicodeConverter(coerce string str){
 	local int I;

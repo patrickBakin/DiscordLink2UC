@@ -3,6 +3,7 @@ class DLRep extends replicationinfo;
 var repnotify string DiscordMSG;
 var DLInteraction DLI;
 var KFPlayerController TheKFPC;
+
 replication
 {
 	if(bNetDirty)
@@ -77,4 +78,21 @@ reliable client simulated function ShowMessage(string Msg)
 	{
 		DLI.AddPendingMsg(Msg);
 	}
+}
+simulated function Destroyed()
+{
+    // End:0x70
+    if(DLI != none)
+    {
+        TheKFPC.Interactions.RemoveItem(DLI);
+        DLI.OwningKFPC = none;
+        DLI = none;
+        TheKFPC = none;
+    }
+    //return;    
+}
+defaultproperties
+{
+	bAlwaysRelevant=false
+    bOnlyRelevantToOwner=true
 }
